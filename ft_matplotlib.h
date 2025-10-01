@@ -1,3 +1,7 @@
+#ifndef FT_MATPLOTLIB_H
+#define FT_MATPLOTLIB_H
+
+
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 #include "font8x8_basic.h"
@@ -23,11 +27,14 @@ typedef struct {
 
 Canvas *canvas_create(int w, int h);
 void canvas_destroy(Canvas *c);
-void set_pixel(Canvas *c, int x, int y, Color col);
-void draw_line(Canvas *c, int x0, int y0, int x1, int y1, Color col);
+
+
 void canvas_save(Canvas *c, const char *filename);
 void plot_line(Canvas *c, double *x, double *y, int n, Color col,
                double xmin, double xmax, double ymin, double ymax);
+               
+void set_pixel(Canvas *c, int x, int y, Color col);
+void draw_line(Canvas *c, int x0, int y0, int x1, int y1, Color col);
 void draw_char(Canvas *c, int x, int y, char ch, Color col);
 void draw_text(Canvas *c, int x, int y, const char *text, Color col);
 void draw_axes(Canvas *c, double xmin, double xmax, double ymin, double ymax);
@@ -68,3 +75,5 @@ void plt_plot_dataframe(Canvas *c, dataframe *df, int colx, int coly, Color col,
 void plt_title(Canvas *c, const char *text, Color col);
 void plt_legend(Canvas *c, const char *text, int x, int y, Color col);
 void plt_axes(Canvas *c, Color col);
+
+#endif

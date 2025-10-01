@@ -1,21 +1,21 @@
 #include "ft_matplotlib.h"
 #include <stdlib.h>
-#include <string.h>
+#include <ft_maki.h>
 
 
 // cria canvas branco
 Canvas *canvas_create(int w, int h) {
-    Canvas *c = malloc(sizeof(Canvas));
+    Canvas *c = ft_malloc(sizeof(Canvas));
     c->width = w;
     c->height = h;
-    c->pixels = malloc(3 * w * h);
-    memset(c->pixels, 255, 3 * w * h); // branco
+    c->pixels = ft_malloc(3 * w * h);
+    ft_memset(c->pixels, 255, 3 * w * h); // branco
     return c;
 }
 
 void canvas_destroy(Canvas *c) {
-    free(c->pixels);
-    free(c);
+    ft_free(c->pixels);
+    ft_free(c);
 }
 
 // seta pixel
@@ -125,9 +125,9 @@ void draw_axes(Canvas *c, double xmin, double xmax, double ymin, double ymax) {
 
 
 ndarray *np_linspace(double start, double end, int n) {
-    ndarray *arr = malloc(sizeof(ndarray));
+    ndarray *arr = ft_malloc(sizeof(ndarray));
     arr->size = n;
-    arr->data = malloc(sizeof(double) * n);
+    arr->data = ft_malloc(sizeof(double) * n);
     double step = (end - start) / (n - 1);
     for (int i = 0; i < n; i++) {
         arr->data[i] = start + i * step;
@@ -136,9 +136,9 @@ ndarray *np_linspace(double start, double end, int n) {
 }
 
 ndarray *np_sin(ndarray *x) {
-    ndarray *arr = malloc(sizeof(ndarray));
+    ndarray *arr = ft_malloc(sizeof(ndarray));
     arr->size = x->size;
-    arr->data = malloc(sizeof(double) * arr->size);
+    arr->data = ft_malloc(sizeof(double) * arr->size);
     for (int i = 0; i < arr->size; i++) {
         arr->data[i] = sin(x->data[i]);
     }
@@ -146,8 +146,8 @@ ndarray *np_sin(ndarray *x) {
 }
 
 void np_free(ndarray *arr) {
-    free(arr->data);
-    free(arr);
+    ft_free(arr->data);
+    ft_free(arr);
 }
 
 
@@ -155,17 +155,17 @@ void np_free(ndarray *arr) {
 // canvas, set_pixel, draw_line, draw_text (com font8x8_basic.h)...
 
 Canvas *plt_create(int w, int h) {
-    Canvas *c = malloc(sizeof(Canvas));
+    Canvas *c = ft_malloc(sizeof(Canvas));
     c->width = w;
     c->height = h;
-    c->pixels = malloc(3 * w * h);
-    memset(c->pixels, 255, 3 * w * h); // fundo branco
+    c->pixels = ft_malloc(3 * w * h);
+    ft_memset(c->pixels, 255, 3 * w * h); // fundo branco
     return c;
 }
 
 void plt_destroy(Canvas *c) {
-    free(c->pixels);
-    free(c);
+    ft_free(c->pixels);
+    ft_free(c);
 }
 
 void plt_save(Canvas *c, const char *filename) {
@@ -199,7 +199,7 @@ void plt_plot_dataframe(Canvas *c, dataframe *df, int colx, int coly, Color col,
 
 // título
 void plt_title(Canvas *c, const char *text, Color col) {
-    draw_text(c, c->width/2 - strlen(text)*4, 20, text, col);
+    draw_text(c, c->width/2 - ft_strlen(text)*4, 20, text, col);
 }
 
 // legenda
@@ -240,9 +240,7 @@ int main() {
     plt_title(c, "grafico da funcao feno", green);
     plt_legend(c, "y = sin(x)", 600, 100, orange);
 
-    plt_save(c, "seno_ft_matplotlib2.png");
+    plt_save(c, "seno_ft_matplotlib1_1.png");
     plt_destroy(c);
-    np_free(X);
-    np_free(Y);
 
 }
