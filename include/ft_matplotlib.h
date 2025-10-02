@@ -103,9 +103,9 @@ void plt_bar_ndarray(Canvas *c, ndarray *x, ndarray *height, Color col,
 
 // 5. Histograma
 void plt_hist(Canvas *c, ndarray *data, int bins, Color col,
-              double xmin, double xmax, double ymin, double ymax);
+              double xmin, double xmax);
 void plt_hist2(Canvas *c, ndarray *data, int bins, Color col,
-              double xmin, double xmax, AxisLimits lim);
+              double xmin, double xmax);
 
 // 6. Imagem (heatmap)
 void plt_imshow(Canvas *c, ndarray *matrix);
