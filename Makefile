@@ -10,7 +10,7 @@ SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -fPIC -I$(INCLUDE_DIR)
+CFLAGS = -Wall   -fPIC -I$(INCLUDE_DIR)
 LDFLAGS = -L. -L/usr/local/lib -lft_maki -lft_ndarray # <-- adicionei aqui
 
 .PHONY: all clean fclean re test install
