@@ -2,7 +2,6 @@
 #include <ft_maki.h>
 #include <ft_mini_numpy.h>
 
-
 Canvas *create_canvas(int w, int h)
 {
     Canvas *c = ft_malloc(sizeof(Canvas));

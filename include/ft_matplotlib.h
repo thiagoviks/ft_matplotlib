@@ -109,6 +109,12 @@ void plt_hist(Canvas *c, ndarray *data, int bins, Color col,
 void plt_hist2(Canvas *c, ndarray *data, int bins, Color col,
               double xmin, double xmax);
 
+// void plt_hist(Canvas *c, ndarray *data, int bins, Color col,
+//               double xmin, double xmax, double ymin, double ymax);
+
+// void plt_hist2(Canvas *c, ndarray *data, int bins, Color col,
+//               double xmin, double xmax, AxisLimits lim) ;
+
 void plt_hist_full(Canvas *c, ndarray *data, int bins, Color col, const char *title,
                     const char *xlabel, const char *ylabel);
 
