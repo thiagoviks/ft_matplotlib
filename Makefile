@@ -43,5 +43,5 @@ test: all
 install: all
 	sudo cp lib$(NAME).a /usr/local/lib/
 	sudo cp lib$(NAME).so /usr/local/lib/
-	sudo cp $(INCLUDE_DIR)/ft_mini*.h /usr/local/include/
+	sudo cp $(INCLUDE_DIR)/*.h /usr/local/include/
 	sudo ldconfig
