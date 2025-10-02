@@ -51,11 +51,6 @@ void plt_draw_legend(Canvas *c, Legend *lg)
     }
 }
 
-void np_free(ndarray *arr) {
-    ft_free(arr->data);
-    ft_free(arr);
-}
-
 void set_pixel(Canvas *c, int x, int y, Color col)
 {
     if (x < 0 || y < 0 || x >= c->width || y >= c->height) return;
@@ -391,7 +386,8 @@ void plt_bar_ndarray(Canvas *c, ndarray *x, ndarray *height, Color col, double x
     }
 }
 
-void plt_bar_ndarray2(Canvas *c, ndarray *x, ndarray *y, Color col, double xmin, double xmax, double ymin, double ymax, int bar_width)
+void plt_bar_ndarray2(Canvas *c, ndarray *x, ndarray *y, Color col, double xmin, 
+                    double xmax, double ymin, double ymax, int bar_width)
 {
     int n = x->shape[0];
     for (int i = 0; i < n; i++) {
@@ -497,7 +493,8 @@ void plt_hist2(Canvas *c, ndarray *data, int bins, Color col, double xmin, doubl
 }
 
 
-void plt_hist_full(Canvas *c, ndarray *data, int bins, Color col, const char *title, const char *xlabel, const char *ylabel)
+void plt_hist_full(Canvas *c, ndarray *data, int bins, Color col, const char *title,
+                    const char *xlabel, const char *ylabel)
 {
 
     // auto scale

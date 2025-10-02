@@ -100,12 +100,17 @@ void plt_scatter_circle_ndarray(Canvas *c, ndarray *x, ndarray *y, Color col,
 // 4. Gráfico de barras
 void plt_bar_ndarray(Canvas *c, ndarray *x, ndarray *height, Color col,
                      double xmin, double xmax, double ymin, double ymax);
+void plt_bar_ndarray2(Canvas *c, ndarray *x, ndarray *y, Color col, double xmin,
+                    double xmax, double ymin, double ymax, int bar_width);
 
 // 5. Histograma
 void plt_hist(Canvas *c, ndarray *data, int bins, Color col,
               double xmin, double xmax);
 void plt_hist2(Canvas *c, ndarray *data, int bins, Color col,
               double xmin, double xmax);
+
+void plt_hist_full(Canvas *c, ndarray *data, int bins, Color col, const char *title,
+                    const char *xlabel, const char *ylabel);
 
 // 6. Imagem (heatmap)
 void plt_imshow(Canvas *c, ndarray *matrix);
@@ -125,6 +130,7 @@ void plt_show(Canvas *c);
 void plt_title(Canvas *c, const char *text, Color col);
 void plt_legend(Canvas *c, const char *text, int x, int y, Color col);
 void plt_axes(Canvas *c, Color col);
+void plt_destroy(Canvas *c);
 void plt_axes2(Canvas *c, AxisLimits lim, Color col, int n_ticks);
 
 
