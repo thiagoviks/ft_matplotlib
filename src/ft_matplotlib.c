@@ -323,12 +323,51 @@ void plt_destroy(Canvas *c)
     ft_free(c);
 }
 
-// Helper function to read double from 1D ndarray
-static inline double ndarray_get1d(const ndarray *arr, int i)
-{
-    char *base = (char *)arr->data;
-    return (*((double *)(base + i * arr->strides[0])));
+//// Helper function to read double from 1D ndarray
+
+static inline void ndarray_set1d_checked(ndarray *a, int idx, double v) {
+    if (!a || !a->data)
+    {
+        ft_printf("Error: ndarray NULL or data NULL\n");
+        abort();
+    }
+    
+    if (a->ndim != 1)
+    {
+        ft_printf("Error: ndarray_set1d_checked expects 1D\n");
+        abort();
+    }
+
+    if (idx < 0 || idx >= a->shape[0])
+    {
+        ft_printf("Error: attempt to write ndarray index %d out of bounds (size=%d)\n",
+                  idx, a->shape[0]);
+        abort();
+    }
+
+    ((double*)a->data)[idx] = v;
 }
+
+
+// Helper function to read double from 1D ndarray
+static inline double ndarray_get1d(ndarray *arr, int idx) {
+    if (!arr || !arr->data) {
+        ft_printf("Error: ndarray_get1d received NULL array/data\n");
+        return 0.0;
+    }
+    if (arr->ndim != 1) {
+        ft_printf("Error: ndarray_get1d only supports 1D arrays (got %d)\n", arr->ndim);
+        return 0.0;
+    }
+    if (idx < 0 || idx >= arr->shape[0]) {
+        ft_printf("Error: ndarray_get1d index %d out of bounds (size=%d)\n",
+                  idx, arr->shape[0]);
+        return 0.0;
+    }
+    // Assuming dtype = float/double
+    return ((double*)arr->data)[idx];
+}
+
 
 // Scatter Plot
 void plt_scatter_ndarray(Canvas *c, ndarray *x, ndarray *y, Color col, double xmin, double xmax, double ymin, double ymax)
@@ -550,19 +589,40 @@ void plt_savefig(Canvas *c, const char *filename)
 
 AxisLimits plt_axis_auto(ndarray *x, ndarray *y)
 {
-    AxisLimits lim;
+    // Default axis limits (safe fallback)
+    AxisLimits lim = {0, 1, 0, 1};
 
-    int n = x->shape[0];
-    if (n <= 0) {
-        lim.xmin = lim.xmax = 0;
-        lim.ymin = lim.ymax = 0;
+    // 1. Validate pointers
+    if (!x || !y) {
+        ft_printf("Error: plt_axis_auto received NULL pointer (x or y)\n");
         return (lim);
     }
 
-    // initializes with the first value
+    // 2. Validate dimensions (we only handle 1D arrays here)
+    if (x->ndim != 1 || y->ndim != 1) {
+        ft_printf("Error: plt_axis_auto supports only 1D arrays\n");
+        return (lim);
+    }
+
+    // 3. Validate size
+    if (x->shape[0] <= 0 || y->shape[0] <= 0) {
+        ft_printf("Error: empty arrays passed to plt_axis_auto\n");
+        return (lim);
+    }
+
+    // 4. Handle mismatch between x and y sizes
+    if (x->shape[0] != y->shape[0]) {
+        ft_printf("Warning: x and y sizes differ (%d vs %d). Using the smaller one.\n",
+                  x->shape[0], y->shape[0]);
+    }
+
+    int n = (x->shape[0] < y->shape[0]) ? x->shape[0] : y->shape[0];
+
+    // 5. Initialize limits with the first element
     lim.xmin = lim.xmax = ndarray_get1d(x, 0);
     lim.ymin = lim.ymax = ndarray_get1d(y, 0);
 
+    // 6. Iterate over the rest of the data to find min/max
     for (int i = 1; i < n; i++) {
         double xv = ndarray_get1d(x, i);
         double yv = ndarray_get1d(y, i);
@@ -574,11 +634,12 @@ AxisLimits plt_axis_auto(ndarray *x, ndarray *y)
         if (yv > lim.ymax) lim.ymax = yv;
     }
 
-    // adds 5% margin (like matplotlib does)
+    // 7. Add 5% margin around the data (like matplotlib)
     double xmargin = (lim.xmax - lim.xmin) * 0.05;
     double ymargin = (lim.ymax - lim.ymin) * 0.05;
 
-    if (xmargin == 0) xmargin = 1.0; // avoid degenerate axis
+    // Avoid degenerate axes (all values the same)
+    if (xmargin == 0) xmargin = 1.0;
     if (ymargin == 0) ymargin = 1.0;
 
     lim.xmin -= xmargin;
