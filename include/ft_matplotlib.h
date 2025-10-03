@@ -58,8 +58,6 @@ typedef struct {
     int max_items;
 } Legend;
 
-
-void np_free(ndarray *arr);
 // Funções auxiliares de desenho
 void set_pixel(Canvas *c, int x, int y, Color col) ;
 void draw_line(Canvas *c, int x0, int y0, int x1, int y1, Color col);
