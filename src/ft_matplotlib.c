@@ -1,7 +1,6 @@
 #include "../include/ft_matplotlib.h"
 #include <ft_maki.h>
-#include <ft_mini_numpy.h>
-#include <stdint.h>
+#include <ft_ndarray.h>
 
 Canvas *create_canvas(int w, int h) {
   Canvas *c = ft_malloc(sizeof(Canvas));
