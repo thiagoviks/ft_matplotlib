@@ -2,26 +2,27 @@
 #define FT_MATPLOTLIB_H
 /*
 
-Observações
+Notes
 
-As funções plt_plot_ndarray e plt_plot_dataframe já temos, só adaptei o nome.
+We already have the plt_plot_ndarray and plt_plot_dataframe functions; I just
+adapted the name.
 
-plt_scatter_ndarray é praticamente igual à sua plt_plot_ndarray, só que
-desenhando pontos (draw_rect pequeno) em vez de linhas.
+plt_scatter_ndarray is practically the same as plt_plot_ndarray, but
+it draws points (small draw_rect) instead of lines.
 
-plt_bar_ndarray pode usar draw_rect para cada barra.
+plt_bar_ndarray can use draw_rect for each bar.
 
-plt_hist é só contar frequências e chamar plt_bar_ndarray.
+plt_hist simply counts frequencies and calls plt_bar_ndarray.
 
-plt_imshow pega ndarray 2D e mapeia valores para cores.
+plt_imshow takes a 2D ndarray and maps values ​​to colors.
 
-plt_title, plt_xlabel, plt_ylabel podem usar draw_text.
+plt_title, plt_xlabel, and plt_ylabel can use draw_text.
 
-plt_grid desenha linhas horizontais/verticais.
+plt_grid draws horizontal/vertical lines.
 
-plt_legend ainda simples: só lista textos no canto.
+plt_legend is still simple: it just displays text in the corner.
 
-plt_savefig e plt_show dependem do backend (PNG, BMP, SDL etc.).
+plt_savefig and plt_show depend on the backend (PNG, BMP, SDL, etc.).
 
 */
 
