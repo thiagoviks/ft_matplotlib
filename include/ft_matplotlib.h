@@ -32,7 +32,7 @@ plt_savefig and plt_show depend on the backend (PNG, BMP, SDL, etc.).
 #include "font8x8_basic.h"
 #include "stb_image_write.h"
 
-// === Core ===
+// Core
 typedef struct {
   int width, height;
   unsigned char *pixels;
@@ -59,14 +59,14 @@ typedef struct {
   int max_items;
 } Legend;
 
-// Funções auxiliares de desenho
+// Auxiliary drawing functions
 void set_pixel(Canvas *c, int x, int y, Color col);
 void draw_line(Canvas *c, int x0, int y0, int x1, int y1, Color col);
 void draw_rect(Canvas *c, int x, int y, int w, int h, Color col);
 void draw_text(Canvas *c, int x, int y, const char *text, Color col);
 void draw_rect(Canvas *c, int x, int y, int w, int h, Color col);
 /*
-    algoritmo do círculo de Bresenham, mas adaptado para preencher
+    Bresenham circle algorithm, but adapted to fill
 */
 void draw_circle(Canvas *c, int cx, int cy, int r, Color col);
 void draw_axes(Canvas *c, double xmin, double xmax, double ymin, double ymax);
@@ -79,30 +79,28 @@ void plt_draw_legend(Canvas *c, Legend *lg);
 AxisLimits plt_axis_auto(ndarray *x, ndarray *y);
 AxisLimits plt_axis_auto_multi(ndarray **xs, ndarray **ys, int nplots);
 
-// === Matplotlib em C (API mínima) ===
-
-// 1. Gráfico de linha
+// 1. Line graph
 void plt_plot_ndarray(Canvas *c, ndarray *x, ndarray *y, Color col, double xmin,
                       double xmax, double ymin, double ymax);
 
-// 2. Gráfico de linha a partir de dataframe
+// 2. Line chart from dataframe
 void plt_plot_dataframe(Canvas *c, dataframe *df, int colx, int coly, Color col,
                         double xmin, double xmax, double ymin, double ymax);
 
-// 3. Gráfico de dispersão
+// 3. Scatterplot
 void plt_scatter_ndarray(Canvas *c, ndarray *x, ndarray *y, Color col,
                          double xmin, double xmax, double ymin, double ymax);
 void plt_scatter_circle_ndarray(Canvas *c, ndarray *x, ndarray *y, Color col,
                                 double xmin, double xmax, double ymin,
                                 double ymax, int radius);
 
-// 4. Gráfico de barras
+// 4. Bar chart
 void plt_bar_ndarray(Canvas *c, ndarray *x, ndarray *height, Color col,
                      double xmin, double xmax, double ymin, double ymax);
 void plt_bar_ndarray2(Canvas *c, ndarray *x, ndarray *y, Color col, double xmin,
                       double xmax, double ymin, double ymax, int bar_width);
 
-// 5. Histograma
+// 5. Histogram
 void plt_hist(Canvas *c, ndarray *data, int bins, Color col, double xmin,
               double xmax);
 void plt_hist2(Canvas *c, ndarray *data, int bins, Color col, double xmin,
@@ -117,21 +115,21 @@ void plt_hist2(Canvas *c, ndarray *data, int bins, Color col, double xmin,
 void plt_hist_full(Canvas *c, ndarray *data, int bins, Color col,
                    const char *title, const char *xlabel, const char *ylabel);
 
-// 6. Imagem (heatmap)
+// 6. Image (heatmap)
 void plt_imshow(Canvas *c, ndarray *matrix);
 
-// 7. Personalização
+// 7. Personalization
 // void plt_title(Canvas *c, const char *text);
 void plt_xlabel(Canvas *c, const char *text, Color col);
 void plt_ylabel(Canvas *c, const char *text, Color col);
 void plt_grid(Canvas *c, int on);
 // void plt_legend(Canvas *c, const char **labels, int nlabels);
 
-// 8. Saída
+// 8. Save and Output
 void plt_savefig(Canvas *c, const char *filename);
 void plt_show(Canvas *c);
 
-// títulos, legendas, eixos
+// title, legends, axis
 void plt_title(Canvas *c, const char *text, Color col);
 void plt_legend(Canvas *c, const char *text, int x, int y, Color col);
 void plt_axes(Canvas *c, Color col);
