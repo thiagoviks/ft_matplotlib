@@ -344,6 +344,15 @@ This library requires the ft_maki and ft_ndarray projects:
 
 Ensure you have the STB libraries in your include path.
 
+
+**Platform requirement**: Linux only
+
+This library requires the ft_maki project and is designed for Linux systems.
+```bash
+# Make sure you're on Linux
+clang -o your_program your_program.c -lft_maki -lft_ndarray -lft_matplotlib
+```
+
 ## Limitations
 
 - No interactive plotting (static images only)
